@@ -1,15 +1,22 @@
 const express = require("express")
 const router = express.Router()
 
-const listClassrooms = require("../services/classroom/list.service")
-const getClassroom = require("../services/classroom/get.service")
+const classrooms = [
+  { id: 1, name: "Quinta" },
+  { id: 2, name: "Sexta" },
+  { id: 3, name: "Septima" },
+  { id: 4, name: "Octava" },
+]
 
-router.get("/list", async (req, res) => {
-  await listClassrooms(req, res)
+router.get("/list", (req, res) => {
+  res.json(classrooms)
 })
 
-router.get("/get", async (req, res) => {
-  await getClassroom(req, res)
+router.get("/get", (req, res) => {
+  const id = parseInt(req.query.id)
+  const classroom = classrooms.find((classroom) => classroom.id === id)
+
+  res.json(classroom)
 })
 
 module.exports = router
